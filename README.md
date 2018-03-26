@@ -42,5 +42,27 @@ roslaunch turtlebot_commander logitech_control.launch
 ```
 to control the Turtlebot with the Logitech controller mentioned in the Dependencies section.
 
+## Robotic Vision Students ##
+On the Turtlebot, run;
+```
+roslaunch turtlebot_recorder stream.launch
+```
+On the commanding maching, run:
+```
+roslaunch turtlebot_cv opencv_control.launch
+```
+
+Additionally, on the commanding machine you need to set these local variables:
+- ROS_MASTER_URI=http://(turtlebot's IP address):11311
+- ROS_HOSTNAME=(commanding machine ip address)
+- ROS_IP=(commanding machine ip address)
+
+Your code should only need to change the `image_callback` function in the python script:
+```
+lab_turtlebot/turtlbot_cv/src/cv_command.py
+```
+Here you have an OpenCV image `cv_image` and a way to command forward velocity `v` and angular velocity `w` of the turtlebot with `send_command(v, w)`.
+
+
 ## Functionality Expansion ##
 See additional launch files and packages in this repository for examples of other students' efforts in integrating additional sensors (such as LIDAR) with the Turtlebot.
