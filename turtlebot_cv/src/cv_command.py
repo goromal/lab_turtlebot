@@ -5,13 +5,11 @@ import cv2
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
-
 from geometry_msgs.msg import Twist
 
 class CVControl:
 
     def __init__(self):
-
         # Turtlebot command publisher
         self.cmd_pub = rospy.Publisher("/mobile_base/commands/velocity", Twist, queue_size=10)
         self.cmd = Twist()
@@ -21,6 +19,7 @@ class CVControl:
         self.image_sub = rospy.Subscriber("/decompressed_img", Image, self.img_callback)
 
     def img_callback(self, data):
+        # Convert ROS msg image to OpenCV image
         try:
             cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
         except CvBridgeError as e:
@@ -31,6 +30,7 @@ class CVControl:
         if cols > 60 and rows > 60 :
             cv2.circle(cv_image, (50,50), 10, 255)
 
+        # Display OpenCV Image
         cv2.imshow("Image window", cv_image)
         cv2.waitKey(3)
 
@@ -49,8 +49,13 @@ class CVControl:
 
 def main():
 
-    ctrl = CVControl()
+    # Initialize ROS node
     rospy.init_node('image_converter')
+
+    # Instantiate control class
+    ctrl = CVControl()
+
+    # Keep running until Ctrl-C to kill
     try:
         rospy.spin()
     except KeyboardInterrupt:
