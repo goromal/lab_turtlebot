@@ -1,0 +1,13 @@
+<launch>
+
+  <include file="$(find turtlebot_recorder)/launch/stream.launch" />
+
+  <node name="vrpn_client" pkg="vrpn_client_ros" type="vrpn_client_node" args="_server:=192.168.0.103 _refresh_tracker_frequenct:=10" />
+
+  <node name="vrpn_trans" pkg="vrpn_transform" type="vrpn_transform_node" args="vrpn_topic:=vrpn_client/Turtlebot/pose" />
+
+  <node name="repub_image" pkg="image_transport" type="republish" output="screen" args="theora in:=/camera/rgb/image_raw raw out:=/decompressed_img"/>
+  
+  <node name="cv_commander" pkg="turtlebot_cv" type="cv_command.py" output="screen"/>
+
+</launch>
