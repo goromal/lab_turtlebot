@@ -17,9 +17,15 @@ While features remain in the camera image, OpenCV's `calcOpticalFlowPyrLK()` is 
 
 # Feature Mapping
 
-In the TurtleBot implementation, feature mapping is done in a very simplified manner. 
+In the TurtleBot implementation, feature mapping is done in a very simplified manner. This takes place primarily in the `Estimator()` class found [here](https://github.com/goromal/lab_turtlebot/blob/7ba396c1c5c26ee2df5d86803d0776e675611d28/map_turtle/src/feature_tracker/estimator.cpp#L8). Feature locations are estimated by estimating the global azimuth and elevation angle to each feature. Since the TurtleBot only spins in a circle in the middle of the room, the angles to each feature should not change with time.
+
+Each time a feature is detected in an image, the `update()` function is called with the feature id, pixel location and the current global yaw angle of the TurtleBot (the yaw angle of the TurtleBot is updated at about 100 Hz from the motion capture system). This `update()` function invokes a simple low pass filter on the estimates.
 
 # Template Matching (Feature Recovery)
+
+The main part of this project is the feature recovery done by template matching. Template matching is a technique where you scan a smaller, template image across another image and score how well the pixels match at each location. A threshold must then be used to know if the best matched location is a true match with the template image or not. Template matching has many negatives about it including being computationally heavy and not being invariant to rotation or scale. However, template matching is pretty good at finding the matching location for a template image.
+
+As the TurtleBot spins in a circle, an estimated pixel located is calculated for eacch feature not currently being tracked in the image. Once the estimated pixel location is in the image, a search region is created around the estimated location. The template image for the feature is then scanned across the search region and the score for the best matched location is compared to a threshold value that was found empirically 
 
 # TurtleBot Results
 
