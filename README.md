@@ -25,9 +25,13 @@ Each time a feature is detected in an image, the `update()` function is called w
 
 The main part of this project is the feature recovery done by template matching. Template matching is a technique where you scan a smaller, template image across another image and score how well the pixels match at each location. A threshold must then be used to know if the best matched location is a true match with the template image or not. Template matching has many negatives about it including being computationally heavy and not being invariant to rotation or scale. However, template matching is pretty good at finding the matching location for a template image.
 
-As the TurtleBot spins in a circle, an estimated pixel located is calculated for eacch feature not currently being tracked in the image. Once the estimated pixel location is in the image, a search region is created around the estimated location. The template image for the feature is then scanned across the search region and the score for the best matched location is compared to a threshold value that was found empirically 
+As the TurtleBot spins in a circle, an estimated pixel located is calculated for each feature that is not currently being tracked in the image. Once the estimated pixel location is in the image, a search region is created around the estimated location. The template image for the feature is then scanned across the search region and the score for the best matched location is compared to a threshold value that was found empirically. This approach is depicted in the following image.
 
 # TurtleBot Results
 
+These algorithms combine to yield the results seen in the video here.
+
 # Multirotor UAV Implementation
+
+A similiar implementation is being worked on for a multirotor UAV. Feature detection, tracking and recovery happen identically to the methods described above, however, feature mapping (locating their position in the world) happens in a more sophisticated fashion. The estimation follows the work from Jeff Ferrin's [Autonomous Goal-Based Mapping and Navigation Using a Ground Robot](https://scholarsarchive.byu.edu/etd/6190/). The current progress can be seen in the video included here. Though work is not finished, the feature detection, tracking and recovery seem to work well. The remaining work revolves around the estimation. However, the algorithms are expected to fly in hardware in Jun 2018. 
 
