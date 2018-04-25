@@ -27,11 +27,18 @@ The main part of this project is the feature recovery done by template matching.
 
 As the TurtleBot spins in a circle, an estimated pixel located is calculated for each feature that is not currently being tracked in the image. Once the estimated pixel location is in the image, a search region is created around the estimated location. The template image for the feature is then scanned across the search region and the score for the best matched location is compared to a threshold value that was found empirically. This approach is depicted in the following image.
 
+![Template Matching](https://raw.githubusercontent.com/goromal/lab_turtlebot/mocap_map/images/template_match.png)
+
 # TurtleBot Results
 
 These algorithms combine to yield the results seen in the video here.
 
+[![UAV TurtleBot Results](https://img.youtube.com/vi/qZHhF-QcZOQ/0.jpg)](https://www.youtube.com/watch?v=qZHhF-QcZOQ)
+
+
 # Multirotor UAV Implementation
 
 A similiar implementation is being worked on for a multirotor UAV. Feature detection, tracking and recovery happen identically to the methods described above, however, feature mapping (locating their position in the world) happens in a more sophisticated fashion. The estimation follows the work from Jeff Ferrin's [Autonomous Goal-Based Mapping and Navigation Using a Ground Robot](https://scholarsarchive.byu.edu/etd/6190/). The current progress can be seen in the video included here. Though work is not finished, the feature detection, tracking and recovery seem to work well. The remaining work revolves around the estimation. However, the algorithms are expected to fly in hardware in Jun 2018. 
+
+[![UAV Simulation Results](https://img.youtube.com/vi/2LMUWCHhFOE/0.jpg)](https://www.youtube.com/watch?v=2LMUWCHhFOE)
 
